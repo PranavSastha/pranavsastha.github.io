@@ -9,7 +9,7 @@ $breakpoints: (
   large: 1024px
 );
 
-// Example mixin
+// Example mixin for responsive behavior
 @mixin respond-to($breakpoint) {
   @if map-has-key($breakpoints, $breakpoint) {
     @media (min-width: map-get($breakpoints, $breakpoint)) {
@@ -17,10 +17,11 @@ $breakpoints: (
     }
   }
 }
-@mixin breakpoint-set($breakpoint) {
+
+// Corrected `breakpoint-set` mixin: Now accepts two arguments
+@mixin breakpoint-set($breakpoint, $convert-to-ems: false) {
   @if map-has-key($breakpoints, $breakpoint) {
-    @media (min-width: map-get($breakpoints, $breakpoint)) {
-      @content;
-    }
-  }
-}
+    $value: map-get($breakpoints, $breakpoint);
+    
+    // Convert to ems if requested
+    @if $convert-to-ems == true {
