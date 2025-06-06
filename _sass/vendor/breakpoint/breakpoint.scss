@@ -25,3 +25,11 @@ $breakpoints: (
     
     // Convert to ems if requested
     @if $convert-to-ems == true {
+      $value: ($value / 16) + em;
+    }
+
+    @media (min-width: $value) {
+      @content;
+    }
+  }
+}
