@@ -1,0 +1,19 @@
+// Placeholder for Breakpoint SCSS file
+// You may need to find and add the actual breakpoint SCSS code
+@import "sass-mq"; // This is a placeholder; you may need actual breakpoint SCSS
+
+// Define breakpoints
+$breakpoints: (
+  small: 480px,
+  medium: 768px,
+  large: 1024px
+);
+
+// Example mixin
+@mixin respond-to($breakpoint) {
+  @if map-has-key($breakpoints, $breakpoint) {
+    @media (min-width: map-get($breakpoints, $breakpoint)) {
+      @content;
+    }
+  }
+}
