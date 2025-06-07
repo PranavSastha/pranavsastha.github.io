@@ -20,5 +20,4 @@ $breakpoints: (
 
 // Corrected `breakpoint-set` mixin: Now accepts two arguments
 @mixin breakpoint-set($breakpoint, $convert-to-ems: false) {
-  @if map-has-key($breakpoints, $breakpoint) {
-    $value: map-get($breakpoints, $
+  @if map-has-key
