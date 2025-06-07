@@ -4,15 +4,16 @@
 // Define breakpoints (Added missing values)
 $breakpoints: (
   small: 480px,
-  medium: 768px,  
+  medium: 768px,
   large: 1024px,
-  custom: 600px,  
-  wide: 925px,    
+  custom: 600px,
+  wide: 925px,
   extra-wide: 1280px,
-  max-small: 599px,  // ✅ Added missing "max-width 600px" reference
-  max-medium: 767px, // ✅ Added missing "max-width 768px" reference
-  max-large: 1023px  // ✅ Added missing "max-width 1024px" reference
+  max-small: 599px,  // Added max-width version for 600px
+  max-medium: 767px, // Added max-width version for 768px
+  max-large: 1023px  // Added max-width version for 1024px
 );
+
 
 // Example mixin for responsive behavior
 @mixin respond-to($breakpoint) {
