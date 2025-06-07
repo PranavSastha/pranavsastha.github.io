@@ -1,15 +1,17 @@
-// Placeholder for Breakpoint SCSS file
-// You may need to find and add the actual breakpoint SCSS code
-@import "sass-mq"; // This is a placeholder; you may need actual breakpoint SCSS
+// Breakpoint SCSS File - Fully Fixed
+@import "sass-mq"; // Ensure this dependency is correctly installed
 
-// Define breakpoints (Fixed missing values)
+// Define breakpoints (Added missing values)
 $breakpoints: (
   small: 480px,
-  medium: 768px,  // ✅ Explicitly defined to fix missing breakpoint warnings
+  medium: 768px,  
   large: 1024px,
-  custom: 600px,  // ✅ Added missing 600px breakpoint
-  wide: 925px,    // ✅ Added missing 925px breakpoint
-  extra-wide: 1280px // ✅ Added missing 1280px breakpoint
+  custom: 600px,  
+  wide: 925px,    
+  extra-wide: 1280px,
+  max-small: 599px,  // ✅ Added missing "max-width 600px" reference
+  max-medium: 767px, // ✅ Added missing "max-width 768px" reference
+  max-large: 1023px  // ✅ Added missing "max-width 1024px" reference
 );
 
 // Example mixin for responsive behavior
@@ -18,10 +20,12 @@ $breakpoints: (
     @media (min-width: map-get($breakpoints, $breakpoint)) {
       @content;
     }
+  } @else {
+    @warn "Breakpoint `#{$breakpoint}` not found!";
   }
 }
 
-// Corrected `breakpoint-set` mixin: Now accepts two arguments
+// **Updated `breakpoint-set` mixin - Added defaults**
 @mixin breakpoint-set($breakpoint, $convert-to-ems: false) {
   @if map-has-key($breakpoints, $breakpoint) {
     $value: map-get($breakpoints, $breakpoint);
@@ -34,16 +38,24 @@ $breakpoints: (
     @media (min-width: $value) {
       @content;
     }
+  } @else {
+    @warn "Breakpoint `#{$breakpoint}` not found!";
   }
 }
 
-// **FIXED: Breakpoint Mixin (Ensured Proper Map Retrieval and Error Handling)**
-@mixin breakpoint($breakpoint) {
-  @if map-has-key($breakpoints, $breakpoint) {  
+// **Improved `breakpoint` Mixin - Handles both `min-width` and `max-width`**
+@mixin breakpoint($breakpoint, $max: false) {
+  @if map-has-key($breakpoints, $breakpoint) {
     $value: map-get($breakpoints, $breakpoint);
 
-    @media (min-width: $value) {
-      @content;
+    @if $max == true {
+      @media (max-width: $value) {
+        @content;
+      }
+    } @else {
+      @media (min-width: $value) {
+        @content;
+      }
     }
   } @else {
     @warn "Breakpoint `#{$breakpoint}` not found!";
