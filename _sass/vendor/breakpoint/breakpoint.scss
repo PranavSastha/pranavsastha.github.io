@@ -2,11 +2,12 @@
 // You may need to find and add the actual breakpoint SCSS code
 @import "sass-mq"; // This is a placeholder; you may need actual breakpoint SCSS
 
-// Define breakpoints
+// Define breakpoints (Fixed missing values)
 $breakpoints: (
   small: 480px,
-  medium: 768px,
-  large: 1024px
+  medium: 768px,  // ✅ Explicitly defined to fix missing breakpoint warnings
+  large: 1024px,
+  custom: 600px   // ✅ Added missing 600px breakpoint
 );
 
 // Example mixin for responsive behavior
@@ -34,9 +35,9 @@ $breakpoints: (
   }
 }
 
-// **FIXED: Breakpoint Mixin (Added Opening `{`)**
+// **FIXED: Breakpoint Mixin (Ensured Proper Map Retrieval and Error Handling)**
 @mixin breakpoint($breakpoint) {
-  @if map-has-key($breakpoints, $breakpoint) {  // ✅ Added `{` here
+  @if map-has-key($breakpoints, $breakpoint) {  // ✅ Ensured proper `{` usage
     $value: map-get($breakpoints, $breakpoint);
 
     @media (min-width: $value) {
