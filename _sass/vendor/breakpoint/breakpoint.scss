@@ -21,15 +21,4 @@ $breakpoints: (
 // Corrected `breakpoint-set` mixin: Now accepts two arguments
 @mixin breakpoint-set($breakpoint, $convert-to-ems: false) {
   @if map-has-key($breakpoints, $breakpoint) {
-    $value: map-get($breakpoints, $breakpoint);
-    
-    // Convert to ems if requested
-    @if $convert-to-ems == true {
-      $value: ($value / 16) + em;
-    }
-
-    @media (min-width: $value) {
-      @content;
-    }
-  }
-}
+    $value: map-get($breakpoints, $
