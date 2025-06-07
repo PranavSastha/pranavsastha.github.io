@@ -20,4 +20,29 @@ $breakpoints: (
 
 // Corrected `breakpoint-set` mixin: Now accepts two arguments
 @mixin breakpoint-set($breakpoint, $convert-to-ems: false) {
-  @if map-has-key
+  @if map-has-key($breakpoints, $breakpoint) {
+    $value: map-get($breakpoints, $breakpoint);
+    
+    // Convert to ems if requested
+    @if $convert-to-ems == true {
+      $value: ($value / 16) + em;
+    }
+
+    @media (min-width: $value) {
+      @content;
+    }
+  }
+}
+
+// **FIXED: Breakpoint Mixin (Added Opening `{`)**
+@mixin breakpoint($breakpoint) {
+  @if map-has-key($breakpoints, $breakpoint) {  // ✅ Added `{` here
+    $value: map-get($breakpoints, $breakpoint);
+
+    @media (min-width: $value) {
+      @content;
+    }
+  } @else {
+    @warn "Breakpoint `#{$breakpoint}` not found!";
+  }
+}
