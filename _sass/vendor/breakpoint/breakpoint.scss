@@ -27,22 +27,24 @@ $breakpoints: (
 }
 
 // **Updated `breakpoint-set` mixin - Added defaults**
-@mixin breakpoint-set($breakpoint, $convert-to-ems: false) {
+@mixin breakpoint($breakpoint, $max: false) {
   @if map-has-key($breakpoints, $breakpoint) {
     $value: map-get($breakpoints, $breakpoint);
-    
-    // Convert to ems if requested
-    @if $convert-to-ems == true {
-      $value: ($value / 16) + em;
-    }
 
-    @media (min-width: $value) {
-      @content;
+    @if $max == true {
+      @media (max-width: $value) {
+        @content;
+      }
+    } @else {
+      @media (min-width: $value) {
+        @content;
+      }
     }
   } @else {
     @warn "Breakpoint `#{$breakpoint}` not found!";
   }
 }
+
 
 // **Improved `breakpoint` Mixin - Handles both `min-width` and `max-width`**
 @mixin breakpoint($breakpoint, $max: false) {
